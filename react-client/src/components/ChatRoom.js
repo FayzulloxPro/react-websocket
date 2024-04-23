@@ -19,7 +19,13 @@ const ChatRoom = () => {
 
     const connect =()=>{
         let Sock = new SockJS('http://localhost:8080/ws');
-        stompClient = over(Sock);
+        // stompClient = over(Sock);
+        // Include the JWT access token in the headers of the WebSocket connection request
+        stompClient = over(Sock, {
+            connectHeaders: {
+                Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHJpbmdAbWFpbC5ydSIsImlhdCI6MTcxMzg3NzQzMSwiaXNzIjoiaHR0cHM6Ly9vbmxpbmUucGRwLnV6IiwiZXhwIjoxNzEzOTM3NDMxfQ.a2GNPWUycAR3bE6nIv0wOlFOMLzCbU2SPiWdYhhdxRg`
+            }
+        });
         stompClient.connect({},onConnected, onError);
     }
 
